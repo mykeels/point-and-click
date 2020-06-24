@@ -8,6 +8,7 @@ export const getTodo = /* GraphQL */ `
       x
       y
       user
+      color
       createdAt
       updatedAt
     }
@@ -25,6 +26,7 @@ export const listTodos = /* GraphQL */ `
         x
         y
         user
+        color
         createdAt
         updatedAt
       }

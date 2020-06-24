@@ -8,6 +8,7 @@ export const onCreateTodo = /* GraphQL */ `
       x
       y
       user
+      color
       createdAt
       updatedAt
     }
@@ -20,6 +21,7 @@ export const onUpdateTodo = /* GraphQL */ `
       x
       y
       user
+      color
       createdAt
       updatedAt
     }
@@ -32,6 +34,7 @@ export const onDeleteTodo = /* GraphQL */ `
       x
       y
       user
+      color
       createdAt
       updatedAt
     }

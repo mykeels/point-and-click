@@ -3,4 +3,5 @@ type Todo @model(timestamps:{createdAt: "createdAt", updatedAt: "updatedAt"}) {
   x: Float!
   y: Float!
   user: String
+  color: String
 }
