@@ -2,4 +2,5 @@ type Todo @model(timestamps:{createdAt: "createdAt", updatedAt: "updatedAt"}) {
   id: ID!
   x: Float!
   y: Float!
+  user: String
 }
