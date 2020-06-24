@@ -1,6 +1,6 @@
 import '@aws-amplify/ui/dist/style.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import './Bubble.css';
@@ -10,6 +10,7 @@ import Amplify, { API, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { createTodo } from "./graphql/mutations";
 import { onCreateTodo } from "./graphql/subscriptions";
+import { v4 as uuid } from "uuid";
 
 Amplify.configure(awsconfig);
 
@@ -27,11 +28,15 @@ const createBubble = ({ x, y }) => {
 
 function App() {
   const [points, setPoints] = useState([]);
+  const id = useMemo(() => uuid(), []);
   useEffect(() => {
     (async () => {
       await API.graphql(graphqlOperation(onCreateTodo)).subscribe({
         next: e => {
-          setPoints(points.concat(e?.value?.data?.onCreateTodo))
+          console.log(e)
+          if (id !== e.value.data.onCreateTodo.user) {
+            createBubble({ x: e.value.data.onCreateTodo.x, y: e.value.data.onCreateTodo.y });
+          }
         }
       });
     })();
@@ -42,8 +47,9 @@ function App() {
       const { clientX: x, clientY: y } = e;
       console.log({ x, y });
       createBubble({ x, y });
+      setPoints(points.concat())
       API.graphql(
-        graphqlOperation(createTodo, { input: { x, y } })
+        graphqlOperation(createTodo, { input: { x, y, user: id } })
       ).then(() => {}).catch(console.error)
     };
   }, []);
