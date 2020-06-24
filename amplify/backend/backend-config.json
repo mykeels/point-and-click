@@ -1,1 +1,10 @@
-{}
+{
+	"auth": {
+		"pointandclickec9c3e40": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

@@ -10,6 +10,11 @@
             "StackName": "amplify-pointandclick-dev-163026",
             "StackId": "arn:aws:cloudformation:us-east-2:259908091716:stack/amplify-pointandclick-dev-163026/a539acc0-b62f-11ea-bbd0-064ea827a74e",
             "AmplifyAppId": "d2z0am5vzymyzy"
+        },
+        "categories": {
+            "auth": {
+                "pointandclickec9c3e40": {}
+            }
         }
     }
 }
