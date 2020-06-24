@@ -11,15 +11,19 @@ import awsconfig from "./aws-exports";
 import { createTodo } from "./graphql/mutations";
 import { onCreateTodo } from "./graphql/subscriptions";
 import { v4 as uuid } from "uuid";
+import randomColor from "random-color";
 
 Amplify.configure(awsconfig);
 
-const createBubble = ({ x, y }) => {
+const createBubble = ({ x, y, color }) => {
   const bubble = document.createElement('span');
   bubble.classList.add('bubble');
   bubble.style.position = 'fixed';
   bubble.style.left = `${x}px`;
   bubble.style.top = `${y}px`;
+  if (color) {
+    bubble.style.backgroundColor = color;
+  }
   document.body.appendChild(bubble);
   setTimeout(() => {
     document.body.removeChild(bubble);
@@ -29,13 +33,14 @@ const createBubble = ({ x, y }) => {
 function App() {
   const [points, setPoints] = useState([]);
   const id = useMemo(() => uuid(), []);
+  const color = useMemo(() => randomColor().hexString(), []);
   useEffect(() => {
     (async () => {
       await API.graphql(graphqlOperation(onCreateTodo)).subscribe({
         next: e => {
           console.log(e)
           if (id !== e.value.data.onCreateTodo.user) {
-            createBubble({ x: e.value.data.onCreateTodo.x, y: e.value.data.onCreateTodo.y });
+            createBubble({ x: e.value.data.onCreateTodo.x, y: e.value.data.onCreateTodo.y, color: e.value.data.onCreateTodo.color });
           }
         }
       });
@@ -46,10 +51,10 @@ function App() {
     window.onclick = e => {
       const { clientX: x, clientY: y } = e;
       console.log({ x, y });
-      createBubble({ x, y });
+      createBubble({ x, y, color });
       setPoints(points.concat())
       API.graphql(
-        graphqlOperation(createTodo, { input: { x, y, user: id } })
+        graphqlOperation(createTodo, { input: { x, y, user: id, color } })
       ).then(() => {}).catch(console.error)
     };
   }, []);
