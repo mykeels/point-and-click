@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "aws-amplify": "^3.0.18",
     "aws-amplify-react": "^4.1.17",
+    "random-color": "^1.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
