@@ -1,5 +1,5 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "callerContext": {
+    "clientId": "e2c182fa-bba0-45bc-9b11-1a53427cd3e4"
+  }
 }

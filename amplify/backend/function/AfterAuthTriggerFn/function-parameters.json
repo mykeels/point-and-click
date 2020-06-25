@@ -4,6 +4,18 @@
             "pointandclickec9c3e40": [
                 "read"
             ]
+        },
+        "api": {
+            "pointandclick": [
+                "create",
+                "read"
+            ]
+        },
+        "storage": {
+            "LoginEvent:@model(appsync)": [
+                "create",
+                "read"
+            ]
         }
     }
 }
