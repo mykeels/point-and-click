@@ -1,0 +1,9 @@
+{
+    "permissions": {
+        "auth": {
+            "pointandclickec9c3e40": [
+                "read"
+            ]
+        }
+    }
+}
