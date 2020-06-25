@@ -20,28 +20,33 @@ const db = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 exports.handler = function(event, context) {
   //eslint-disable-line
   console.log(JSON.stringify(event, null, 2));
-  const userId = (event.callerContext || {}).clientId;
+  const userId = ((event.request || {}).userAttributes || {}).sub;
 
-  if (!userId) {
-    return context.done(new Error("No [userId] found"));
-  }
-
-  db.putItem({
-    TableName: loginEventTableName,
-    Item: {
-      id: {
-        N: uuid()
+  if (userId) {
+    db.putItem({
+      TableName: loginEventTableName,
+      Item: {
+        id: {
+          S: uuid()
+        },
+        user_id: {
+          S: userId
+        },
+        createdAt: {
+          S: new Date().toISOString()
+        },
+        updatedAt: {
+          S: new Date().toISOString()
+        }
       },
-      user_id: {
-        S: userId
-      }
-    }
-  })
-  .promise()
-  .then(value => {
-    context.done(null, value);
-  }).catch(error => {
-    context.done(error);
-  });
+      ConditionExpression: 'attribute_not_exists(id)'
+    })
+    .promise()
+    .then(value => {
+      context.done(null, { ...event, response: value });
+    }).catch(error => {
+      context.done(error);
+    });
+  }
 };
 
