@@ -34,3 +34,30 @@ export const listTodos = /* GraphQL */ `
     }
   }
 `;
+export const getLoginEvent = /* GraphQL */ `
+  query GetLoginEvent($id: ID!) {
+    getLoginEvent(id: $id) {
+      id
+      user_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listLoginEvents = /* GraphQL */ `
+  query ListLoginEvents(
+    $filter: ModelLoginEventFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLoginEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        user_id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

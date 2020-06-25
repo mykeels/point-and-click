@@ -5,3 +5,8 @@ type Todo @model(timestamps:{createdAt: "createdAt", updatedAt: "updatedAt"}) {
   user: String
   color: String
 }
+
+type LoginEvent @model(timestamps:{createdAt: "createdAt", updatedAt: "updatedAt"}) {
+  id: ID!
+  user_id: String!
+}
