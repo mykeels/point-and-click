@@ -9,6 +9,7 @@
 Amplify Params - DO NOT EDIT */
 
 const AWS = require("aws-sdk");
+const { v4: uuid } = require("uuid");
 const region = process.env.REGION;
 const loginEventTableName = process.env.API_POINTANDCLICK_LOGINEVENTTABLE_NAME;
 
@@ -28,6 +29,9 @@ exports.handler = function(event, context) {
   db.putItem({
     TableName: loginEventTableName,
     Item: {
+      id: {
+        N: uuid()
+      },
       user_id: {
         S: userId
       }
