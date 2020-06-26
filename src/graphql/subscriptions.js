@@ -44,6 +44,7 @@ export const onCreateLoginEvent = /* GraphQL */ `
   subscription OnCreateLoginEvent {
     onCreateLoginEvent {
       id
+      type
       user_id
       createdAt
       updatedAt
@@ -54,6 +55,7 @@ export const onUpdateLoginEvent = /* GraphQL */ `
   subscription OnUpdateLoginEvent {
     onUpdateLoginEvent {
       id
+      type
       user_id
       createdAt
       updatedAt
@@ -64,6 +66,7 @@ export const onDeleteLoginEvent = /* GraphQL */ `
   subscription OnDeleteLoginEvent {
     onDeleteLoginEvent {
       id
+      type
       user_id
       createdAt
       updatedAt

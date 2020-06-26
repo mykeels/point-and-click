@@ -6,7 +6,13 @@ type Todo @model(timestamps:{createdAt: "createdAt", updatedAt: "updatedAt"}) {
   color: String
 }
 
-type LoginEvent @model(timestamps:{createdAt: "createdAt", updatedAt: "updatedAt"}) {
+type LoginEvent  
+  @model
+  @key(name: "byDate", fields: ["user_id", "createdAt"], queryField: "sortLoginByDate")
+  @key(name: "byTypeDate", fields: ["type", "createdAt"], queryField: "sortLoginByTypeDate") {
   id: ID!
+  type: String!
   user_id: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }

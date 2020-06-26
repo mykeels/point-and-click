@@ -115,7 +115,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-pointandclick-dev-163026-deployment",
-					"S3Key": "amplify-builds/AfterAuthTriggerFn-4737654e4f4c6244466f-build.zip"
+					"S3Key": "amplify-builds/AfterAuthTriggerFn-50497977787950696b59-build.zip"
 				}
 			}
 		},

@@ -56,6 +56,7 @@ export const createLoginEvent = /* GraphQL */ `
   ) {
     createLoginEvent(input: $input, condition: $condition) {
       id
+      type
       user_id
       createdAt
       updatedAt
@@ -69,6 +70,7 @@ export const updateLoginEvent = /* GraphQL */ `
   ) {
     updateLoginEvent(input: $input, condition: $condition) {
       id
+      type
       user_id
       createdAt
       updatedAt
@@ -82,6 +84,7 @@ export const deleteLoginEvent = /* GraphQL */ `
   ) {
     deleteLoginEvent(input: $input, condition: $condition) {
       id
+      type
       user_id
       createdAt
       updatedAt

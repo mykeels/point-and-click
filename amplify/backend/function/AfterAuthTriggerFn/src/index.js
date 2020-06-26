@@ -29,6 +29,9 @@ exports.handler = function(event, context) {
         id: {
           S: uuid()
         },
+        type: {
+          S: "LoginEvent"
+        },
         user_id: {
           S: userId
         },

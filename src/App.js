@@ -9,6 +9,7 @@ import { withAuthenticator } from 'aws-amplify-react';
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { createTodo } from "./graphql/mutations";
+import { listLoginEvents, sortLoginByTypeDate } from "./graphql/queries";
 import { onCreateTodo } from "./graphql/subscriptions";
 import { v4 as uuid } from "uuid";
 import randomColor from "random-color";
@@ -30,8 +31,10 @@ const createBubble = ({ x, y, color }) => {
   }, 1000);
 }
 
-function App() {
+function App({ authData: auth }) {
+  const { attributes: user } = auth;
   const [points, setPoints] = useState([]);
+  const [lastLogin, setLastLogin] = useState(null);
   const id = useMemo(() => uuid(), []);
   const color = useMemo(() => randomColor().hexString(), []);
   useEffect(() => {
@@ -44,6 +47,22 @@ function App() {
           }
         }
       });
+
+      console.log({ id: user.sub })
+
+      await API.graphql(graphqlOperation(sortLoginByTypeDate, {
+        type: "LoginEvent",
+        createdAt: {
+          lt: new Date().toISOString()
+        },
+        sortDirection: 'DESC',
+        limit: 1
+      })).then(res => {
+        const loginEvents = res?.data?.sortLoginByTypeDate?.items || [];
+        if (loginEvents[0]?.createdAt) {
+          setLastLogin(loginEvents[0]?.createdAt)
+        }
+      }).catch(console.error)
     })();
   }, []);
 
@@ -65,6 +84,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        {
+          lastLogin ? <p style={{fontSize: '12px', padding: '2px'}}>Last Login: {lastLogin}</p> : null
+        }
         {
           lastPoint ? <p style={{fontSize: '12px', padding: '2px'}}>
           X: <span>{lastPoint.x}</span>, Y: <span>{lastPoint.y}</span>
